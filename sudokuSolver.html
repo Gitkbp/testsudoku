@@ -82,7 +82,15 @@ function submitSudoku() {
             'Content-Type': 'application/json'
         },
     })
-    .then(response => response.json())
+    .then(response => {
+        if (response.ok) {
+            return response.json(); // If response is successful, parse JSON
+        } else if (response.status === 404) { // If response status is 404 (Not Found)
+            throw new Error('No solution found for the Sudoku puzzle.'); // Throw custom error
+        } else {
+            throw new Error('Failed to solve Sudoku puzzle. Please try again later.'); // Throw generic error
+        }
+    })
     .then(data => {
         console.log('Success:', data);
         // Display the solved Sudoku grid here
