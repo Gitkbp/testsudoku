@@ -45,18 +45,18 @@
         font-size: 18px;
         cursor: pointer;
     }
-    .sudoku-grid input:nth-child(3n) {
+
+    /* Thicker right border for the 3rd and 6th cells in each row */
+.sudoku-grid input:nth-child(3n) {
     border-right: 2px solid #000;
 }
 
-/* ...other styles... */
-
-/* Apply the thicker bottom border for the last cell of every third row */
-.sudoku-grid input:nth-child(27n), .sudoku-grid input:nth-child(27n - 1), .sudoku-grid input:nth-child(27n - 2),
-.sudoku-grid input:nth-child(54n), .sudoku-grid input:nth-child(54n - 1), .sudoku-grid input:nth-child(54n - 2) {
+/* Thicker bottom border for every cell in the 3rd and 6th row */
+.sudoku-grid input:nth-child(n+19):nth-child(-n+27),
+.sudoku-grid input:nth-child(n+46):nth-child(-n+54) {
     border-bottom: 2px solid #000;
 }
-    }
+    
 </style>
 </head>
 <body>
