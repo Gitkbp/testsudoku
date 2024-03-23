@@ -85,8 +85,6 @@ function submitSudoku() {
     .then(response => {
         if (response.ok) {
             return response.json(); // If response is successful, parse JSON
-        } else if (response.status === 404) { // If response status is 404 (Not Found)
-            throw new Error('No solution found for the Sudoku puzzle.'); // Throw custom error
         } else {
             throw new Error('Failed to solve Sudoku puzzle. Please try again later.'); // Throw generic error
         }
@@ -98,6 +96,11 @@ function submitSudoku() {
     })
     .catch((error) => {
         console.error('Error:', error);
+        if (error instanceof TypeError && error.message === 'Failed to fetch') {
+            throw new Error('The request timed out. Please try again later.'); // Throw timeout error
+        } else {
+            throw new Error('Failed to solve Sudoku puzzle. Please try again later.'); // Throw generic error
+        }
     });
 }
 
