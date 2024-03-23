@@ -75,7 +75,7 @@ function submitSudoku() {
 
     fetch(apiGatewayUrl, {
         method: 'POST',
-        body: JSON.stringify({ Cells: cells }),
+        body: JSON.stringify({ cells: cells }),
         headers: {
             'Content-Type': 'application/json'
         },
