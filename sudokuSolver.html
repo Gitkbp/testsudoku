@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sudoku Solver</title>
 
-    <style>
+   <style>
     body {
         font-family: Arial, sans-serif;
         display: flex;
@@ -43,15 +43,9 @@
     .sudoku-grid input:nth-child(3n), .sudoku-grid input:nth-child(6n) {
         border-right: 3px solid #000;
     }
-    .sudoku-grid input:nth-child(n+19):nth-child(-n+27),
-    .sudoku-grid input:nth-child(n+46):nth-child(-n+54),
-    .sudoku-grid input:nth-child(n+73):nth-child(-n+81) {
-        border-bottom: 3px solid #000;
-    }
-    /* Apply thick border at the bottom of every 3rd row */
-    .sudoku-grid input:nth-child(n+7):nth-child(-n+9),
-    .sudoku-grid input:nth-child(n+34):nth-child(-n+36),
-    .sudoku-grid input:nth-child(n+61):nth-child(-n+63) {
+    /* Apply thick border at the bottom of every 3rd row except the last cell of the groups */
+    .sudoku-grid input:nth-child(27n), .sudoku-grid input:nth-child(27n + 1), .sudoku-grid input:nth-child(27n + 2),
+    .sudoku-grid input:nth-child(54n), .sudoku-grid input:nth-child(54n + 1), .sudoku-grid input:nth-child(54n + 2) {
         border-bottom: 3px solid #000;
     }
     button {
