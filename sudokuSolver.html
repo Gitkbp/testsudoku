@@ -97,9 +97,9 @@ function submitSudoku() {
     .catch((error) => {
         console.error('Error:', error);
         if (error instanceof TypeError && error.message === 'Failed to fetch') {
-            throw new Error('The request timed out. Please try again later.'); // Throw timeout error
+            alert('The request timed out. Please try again later.'); // Show popup for timeout error
         } else {
-            throw new Error('Failed to solve Sudoku puzzle. Please try again later.'); // Throw generic error
+            alert('Failed to solve Sudoku puzzle. Please try again later.'); // Show popup for other errors
         }
     });
 }
