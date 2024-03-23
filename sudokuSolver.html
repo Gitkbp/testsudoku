@@ -45,19 +45,15 @@
         font-size: 18px;
         cursor: pointer;
     }
-
     /* Apply a thicker border to the right of every 3rd cell except the rightmost cells */
-.sudoku-grid input:nth-child(3n):not(:nth-child(9n)) {
-    border-right: 2px solid #000;
-}
-
-
-/* Thicker bottom border for every cell in the 3rd and 6th row */
-.sudoku-grid input:nth-child(n+19):nth-child(-n+27),
-.sudoku-grid input:nth-child(n+46):nth-child(-n+54) {
-    border-bottom: 2px solid #000;
-}
-    
+    .sudoku-grid input:nth-child(3n):not(:nth-child(9n)) {
+        border-right: 2px solid #000;
+    }
+    /* Thicker bottom border for every cell in the 3rd and 6th row */
+    .sudoku-grid input:nth-child(n+19):nth-child(-n+27),
+    .sudoku-grid input:nth-child(n+46):nth-child(-n+54) {
+        border-bottom: 2px solid #000;
+    }
 </style>
 </head>
 <body>
@@ -69,15 +65,29 @@
     <button onclick="submitSudoku()">Solve Sudoku</button>
 </div>
 <script>
+    // Sudoku initial values
+    const initialValues = [
+        '005940001',
+        '900060000',
+        '004000000',
+        '050400067',
+        '300000005',
+        '120005040',
+        '000000200',
+        '000050008',
+        '400023900'
+    ].join("").split('').map(val => val === '0' ? '' : val); // Convert to array of strings, replace '0' with empty
+
     function createSudokuGrid() {
         const grid = document.getElementById('sudokuGrid');
-        for (let i = 0; i < 81; i++) {
+        initialValues.forEach((val, i) => {
             const input = document.createElement('input');
             input.type = 'text';
             input.maxLength = '1';
             input.pattern = '[1-9]*';
+            input.value = val; // Set the cell value
             grid.appendChild(input);
-        }
+        });
     }
     
     createSudokuGrid();
