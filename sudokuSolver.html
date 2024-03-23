@@ -84,10 +84,18 @@ function submitSudoku() {
     .then(data => {
         console.log('Success:', data);
         // Display the solved Sudoku grid here
+        displaySudokuGrid(data.cells); // Call a function to display the solved Sudoku grid
     })
     .catch((error) => {
         console.error('Error:', error);
     });
+}
+
+function displaySudokuGrid(solvedCells) {
+    const inputFields = document.querySelectorAll('#sudokuGrid input');
+    for (let i = 0; i < inputFields.length; i++) {
+        inputFields[i].value = solvedCells[i];
+    }
 }
 
 </script>
