@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         gridHtml += `<input type="text" id="cell${i}" name="cell${i}" maxlength="1" pattern="[1-9]*" value="${cellValue}">`;
     }
     gridContainer.innerHTML = gridHtml;
+     addArrowKeyNavigation();
 });
 
 // New function to add arrow key navigation to the grid
