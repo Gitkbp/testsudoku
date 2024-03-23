@@ -16,17 +16,15 @@
     }
     .container {
         text-align: center;
+        background: #fff;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background: white;
-        max-width: 450px;
-        width: 100%;
     }
     .sudoku-grid {
         display: grid;
-        grid-template-columns: repeat(9, 1fr);
-        gap: 1px;
+        grid-template-columns: repeat(9, 50px);
+        grid-gap: 1px;
         background: #000;
         padding: 1px;
         margin-bottom: 20px;
@@ -36,27 +34,21 @@
         height: 50px;
         text-align: center;
         font-size: 20px;
-        border: none;
+        border: 1px solid #000;
+        background: #fff;
         outline: none;
-        background: white;
     }
-    .sudoku-grid input:nth-child(3n) {
+    .bold-border-right {
         border-right: 3px solid #000;
     }
-    .sudoku-grid input:nth-child(27n) {
+    .bold-border-bottom {
         border-bottom: 3px solid #000;
-    }
-    .sudoku-grid input:nth-child(9n), .sudoku-grid input:nth-last-child(-n+9) {
-        border-right: none;
-        border-bottom: none;
-    }
-    .sudoku-grid input:nth-last-child(-n+3) {
-        border-bottom: none;
     }
     button {
         padding: 10px 20px;
         font-size: 18px;
         cursor: pointer;
+        margin-top: 10px; /* Add some space above the button */
     }
 </style>
 </head>
@@ -77,24 +69,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function createSudokuGrid() {
     const grid = document.getElementById('sudokuGrid');
-    for (let i = 1; i <= 81; i++) {
+    for (let i = 0; i < 81; i++) {
         const input = document.createElement('input');
         input.type = 'text';
         input.maxLength = '1';
         input.pattern = '[1-9]*';
-        if ([3, 6, 9, 30, 33, 36, 60, 63, 66].includes(i % 27)) {
-            input.style.borderRight = '3px solid #000';
-            if ([27, 54, 81].includes(i)) {
-                input.style.borderRight = 'none';
-            }
+        if ([2, 5, 8].includes(i % 9)) {
+            input.classList.add('bold-border-right');
         }
-        if (i > 54) {
-            input.style.borderBottom = '3px solid #000';
+        if ([20, 23, 26, 47, 50, 53, 74, 77, 80].includes(i)) {
+            input.classList.add('bold-border-bottom');
         }
         grid.appendChild(input);
     }
 }
-
 
 
 function submitSudoku() {
