@@ -12,31 +12,41 @@
         align-items: center;
         height: 100vh;
         margin: 0;
+        background: #f7f7f7;
     }
     .container {
         text-align: center;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .sudoku-grid {
         display: grid;
         grid-template-columns: repeat(9, 50px);
         gap: 1px;
         margin-bottom: 20px;
+        background: #000;
+        padding: 2px;
     }
     .sudoku-grid input {
-        width: 50px;
+        width: 100%;
         height: 50px;
         text-align: center;
         font-size: 20px;
         border: 1px solid #ccc;
         box-sizing: border-box;
+        background: #fff;
+        outline: none;
+    }
+    .sudoku-grid input:focus {
+        background: #eef;
     }
     .sudoku-grid input:nth-child(3n) {
-        border-right: 3px solid black;
+        border-right: 2px solid #000;
     }
-    .sudoku-grid input:nth-child(27n + 1), .sudoku-grid input:nth-child(27n + 2), .sudoku-grid input:nth-child(27n + 3),
-    .sudoku-grid input:nth-child(27n + 4), .sudoku-grid input:nth-child(27n + 5), .sudoku-grid input:nth-child(27n + 6),
-    .sudoku-grid input:nth-child(27n + 7), .sudoku-grid input:nth-child(27n + 8), .sudoku-grid input:nth-child(27n + 9) {
-        border-bottom: 3px solid black;
+    .sudoku-grid input:nth-child(27n), .sudoku-grid input:nth-child(27n + 1), .sudoku-grid input:nth-child(27n + 2) {
+        border-bottom: 2px solid #000;
     }
     button {
         padding: 10px 20px;
@@ -50,39 +60,41 @@
 
 <div class="container">
     <h1>Sudoku Solver</h1>
-    <div class="sudoku-grid">
+    <div id="sudokuGrid" class="sudoku-grid">
         <!-- Sudoku grid will be generated here -->
     </div>
     <button onclick="submitSudoku()">Solve Sudoku</button>
 </div>
 
 <script>
-// Function to create Sudoku grid
+document.addEventListener('DOMContentLoaded', function() {
+    createSudokuGrid();
+});
+
 function createSudokuGrid() {
     const grid = document.getElementById('sudokuGrid');
+    if (!grid) {
+        console.error('Element with ID "sudokuGrid" was not found.');
+        return;
+    }
     for (let i = 0; i < 81; i++) {
         const input = document.createElement('input');
         input.type = 'text';
         input.id = 'cell' + i;
         input.maxLength = '1';
         input.pattern = '[1-9]*';
-        input.style.border = '1px solid #ddd'; // Add the border to each input
-        // Make the borders thicker at each 3x3 box boundary
-        if ((i % 9) % 3 === 2) input.style.borderRightWidth = '3px';
-        if (Math.floor(i / 9) % 3 === 2 && i < 72) input.style.borderBottomWidth = '3px';
+        if ((i % 9) === 2 || (i % 9) === 5) input.style.borderRight = '2px solid #000';
+        if ([20, 21, 22, 23, 24, 25, 26, 27, 28, 47, 48, 49, 50, 51, 52, 53, 54, 55].includes(i)) {
+            input.style.borderBottom = '2px solid #000';
+        }
         grid.appendChild(input);
     }
 }
 
-// Call createSudokuGrid to generate the grid
-createSudokuGrid();
-
 function submitSudoku() {
-    // Collect Sudoku grid data
     const cells = Array.from({ length: 81 }, (_, i) => document.getElementById('cell' + i).value);
-    console.log(cells); // Check the data
-
-    // Add the API request here
+    // Perform the API call with cells
+    // ...
 }
 </script>
 
