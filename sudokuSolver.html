@@ -22,26 +22,39 @@
 
 <h2>Sudoku Solver</h2>
 
-<form id="sudokuForm" class="sudoku-grid">
-    <!-- Simplified for brevity -->
-    <!-- Assuming 9x9 Sudoku, generate 81 inputs -->
-    <!-- Each cell has a unique ID cell0, cell1, ..., cell80 -->
-    <!-- You might want to add more structure for visual grouping of Sudoku blocks -->
-    <!-- This is a flat structure for simplicity -->
-    <!-- Each input should only allow one digit -->
-    ${Array.from({ length: 81 }).map((_, i) =>
-        `<input type="text" id="cell${i}" name="cell${i}" maxlength="1" pattern="[1-9]*">`).join('')}
-    <button type="button" onclick="submitSudoku()">Solve Sudoku</button>
-</form>
+<div id="sudokuGrid" class="sudoku-grid">
+    <!-- Sudoku grid will be generated here -->
+</div>
+
+<button onclick="submitSudoku()">Solve Sudoku</button>
 
 <script>
+// Function to create Sudoku grid
+function createSudokuGrid() {
+    const grid = document.getElementById('sudokuGrid');
+    for (let i = 0; i < 81; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'cell' + i;
+        input.maxLength = '1';
+        input.pattern = '[1-9]*';
+        grid.appendChild(input);
+    }
+}
+
+// Call createSudokuGrid to generate the grid
+createSudokuGrid();
+
 function submitSudoku() {
     // Collect Sudoku grid data
-    let formData = {
-        cells: Array.from({ length: 81 }).map((_, i) => document.getElementById(`cell${i}`).value)
+    const formData = {
+        cells: Array.from({ length: 81 }).map((_, i) => document.getElementById('cell' + i).value)
     };
 
-    fetch('https://your-api-id.execute-api.your-region.amazonaws.com/Prod/solve', {
+    // Replace with your API Gateway URL
+    const apiGatewayUrl = 'https://your-api-id.execute-api.your-region.amazonaws.com/Prod/solve';
+
+    fetch(apiGatewayUrl, {
         method: 'POST',
         body: JSON.stringify(formData),
         headers: {
@@ -51,15 +64,9 @@ function submitSudoku() {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        // Display the solved Sudoku grid
-        // Assuming `data` contains an array of solved cell values
-        if (data.cells && data.cells.length === 81) {
-            data.cells.forEach((value, i) => {
-                document.getElementById(`cell${i}`).value = value;
-            });
-        }
+        // Handle response and update grid with solved puzzle
     })
-    .catch((error) => {
+    .catch(error => {
         console.error('Error:', error);
     });
 }
