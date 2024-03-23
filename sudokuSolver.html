@@ -46,6 +46,18 @@
         cursor: pointer;
         margin-right: 10px;
     }
+
+    /* Apply a thicker border to the right of every 3rd cell except the rightmost cells */
+.sudoku-grid input:nth-child(3n):not(:nth-child(9n)) {
+    border-right: 2px solid #000;
+}
+
+
+/* Thicker bottom border for every cell in the 3rd and 6th row */
+.sudoku-grid input:nth-child(n+19):nth-child(-n+27),
+.sudoku-grid input:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid #000;
+}
 </style>
 </head>
 <body>
