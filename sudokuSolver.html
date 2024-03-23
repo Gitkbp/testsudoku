@@ -24,8 +24,9 @@
     .sudoku-grid {
         display: grid;
         grid-template-columns: repeat(9, 40px);
-        grid-gap: 1px;
+        grid-gap: 1px; /* Adjusted for visual accuracy */
         margin-bottom: 20px;
+        border: 3px solid #000; /* Thicker border around the entire grid */
     }
     .sudoku-grid input {
         width: 100%;
@@ -33,7 +34,7 @@
         border: 1px solid #ccc;
         text-align: center;
         font-size: 18px;
-        box-sizing: border-box;
+        box-sizing: border-box; /* Ensures the border is included in the width/height */
     }
     .sudoku-grid input:focus {
         outline: none;
@@ -44,12 +45,14 @@
         font-size: 18px;
         cursor: pointer;
     }
-    /* Borders for subgrids */
+    /* Additional CSS for the 3x3 subgrids */
     .sudoku-grid input:nth-child(3n), .sudoku-grid input:nth-child(3n + 1), .sudoku-grid input:nth-child(3n + 2) {
-        border-right: 3px solid #000;
+        border-right: 2px solid #000;
     }
-    .sudoku-grid input:nth-last-child(-n+27) {
-        border-bottom: 3px solid #000;
+    .sudoku-grid input:nth-child(27n), .sudoku-grid input:nth-child(27n + 1), .sudoku-grid input:nth-child(27n + 2),
+    .sudoku-grid input:nth-child(27n + 3), .sudoku-grid input:nth-child(27n + 4), .sudoku-grid input:nth-child(27n + 5),
+    .sudoku-grid input:nth-child(27n + 6), .sudoku-grid input:nth-child(27n + 7), .sudoku-grid input:nth-child(27n + 8) {
+        border-bottom: 2px solid #000;
     }
 </style>
 </head>
